@@ -1,0 +1,55 @@
+extend layout
+block navbar
+  .navbar.navbar-inverse.navbar
+    .container
+      .navbar-header
+        a.navbar-brand(href='/') SupportBot
+block dashboard
+  .container
+    h2(class="text-center text-info") Welcome to the PagerDuty Bot Dashboard.
+    if(on_call!=null)
+      h5(class="text-center")
+        span(class="text") #{on_call}
+        span 
+          | is the engineer on call today.
+    else
+      h6(class="text-center") The PagerDuty is currently having trouble figuring out who is on call. We are sorry for the inconvenience.
+    h1(padding="5px")
+    form(role="form", action="/new", method="post")
+      .container
+        .form-group
+          label(for="newTextArea") Create New Incident
+          textarea(class="form-control", rows="5", name="description")
+        button(type="submit", class="btn btn-danger pull-right", id="newButton", align="right") New Incident
+        if(error!="")
+          p(class="text-danger") #{error}
+        if(success!="")
+          p(class="text-success") #{success}
+      h1(padding="5px")
+      .container
+        label Open Issues
+        table(class="table table-responsive table-bordered")
+          tr
+            th #
+            th Created On
+            th Details
+            th Assigned To
+            th Status
+          - each item in incidents
+            - var item_class
+            if(item.status=="Acknowledged")
+              - item_class = "warning"
+            if(item.status=="Resolved")
+              - item_class = "success"
+            if(item.status=="Unacknowledged")
+              - item_class = "danger"
+            tr(class=item_class)
+              td= item.incident_number
+              td= item.created_on
+              td= item.description
+              td= item.assigned_to
+              td= item.status
+      if(incidents.length == 0)
+        h4(class="text-center text-success") There are currently no unresolved issues!
+
+

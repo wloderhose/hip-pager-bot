@@ -1,0 +1,25 @@
+{
+  "name": "pagerduty-bot",
+  "version": "0.1.0",
+  "description": "A bot that proxies between the PagerDuty REST api and Hipchat",
+  "keywords": ["bot", "hipchat", "pagerduty", "node", "api", "proxy"],
+  "homepage": "https://github.com/Will-Loderhose/pagerduty-bot",
+  "author": "Will Loderhose",
+  "repository": {
+    "type":"git",
+    "url":"git://github.com/Will-Loderhose/pagerduty-bot"
+  },
+  "dependencies": {
+   "wobot" : "git+ssh://git@github.com:Will-Loderhose/wobot.git#master",
+   "moment" : "~2.2.1",
+   "express" : "3.x",
+   "jade" : "*",
+   "connect-flash" : "git://github.com/jaredhanson/connect-flash.git"
+  },
+  "devDependencies" : {
+    "debug" : "~0.7.2"
+  },
+  "engines": {
+    "node": ">= 0.4.1 < 0.7.0"
+  }
+}
