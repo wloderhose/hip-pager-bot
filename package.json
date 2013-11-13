@@ -1,6 +1,6 @@
 {
   "name": "pagerduty-bot",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A bot that proxies between the PagerDuty REST api and Hipchat",
   "keywords": ["bot", "hipchat", "pagerduty", "node", "api", "proxy"],
   "homepage": "https://github.com/Will-Loderhose/pagerduty-bot",
@@ -19,9 +19,6 @@
    "express" : "3.x",
    "jade" : "*",
    "connect-flash" : "git://github.com/jaredhanson/connect-flash.git"
-  },
-  "devDependencies" : {
-    "debug" : "~0.7.2"
   },
   "engines": {
     "node": "v0.10.22"
