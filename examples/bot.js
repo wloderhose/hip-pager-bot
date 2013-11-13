@@ -111,7 +111,7 @@ bot.onCommand('msg', function(body, room, from, callback) {
 			if(isProd) {
 				receiver = onCall.name;
 			} else {
-				str += '\n(SupportBot is currenty running in testing mode so the message was sent back to you instead of the on call engineer.)';
+				str += '\n(The bot is currenty running in testing mode so the message was sent back to you instead of the on call engineer.)';
 			}
 			callback(str);
 		}

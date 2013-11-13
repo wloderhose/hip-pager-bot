@@ -1,0 +1,67 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/0.10.18/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'login' ]
+2 info using npm@1.3.8
+3 info using node@v0.10.18
+4 verbose adduser before first PUT { name: 'will-loderhose',
+4 verbose adduser   salt: 'XXXXX',
+4 verbose adduser   password_sha: 'XXXXX',
+4 verbose adduser   email: 'will.loderhose@gmail.com',
+4 verbose adduser   _id: 'org.couchdb.user:will-loderhose',
+4 verbose adduser   type: 'user',
+4 verbose adduser   roles: [],
+4 verbose adduser   date: '2013-11-13T19:54:53.233Z' }
+5 verbose url raw /-/user/org.couchdb.user:will-loderhose
+6 verbose url resolving [ 'https://registry.npmjs.org/',
+6 verbose url resolving   './-/user/org.couchdb.user:will-loderhose' ]
+7 verbose url resolved https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose
+8 info trying registry request attempt 1 at 14:54:53
+9 http PUT https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose
+10 http 409 https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose
+11 verbose adduser update existing user
+12 verbose url raw /-/user/org.couchdb.user:will-loderhose
+13 verbose url resolving [ 'https://registry.npmjs.org/',
+13 verbose url resolving   './-/user/org.couchdb.user:will-loderhose' ]
+14 verbose url resolved https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose
+15 info trying registry request attempt 1 at 14:54:54
+16 http GET https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose
+17 http 200 https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose
+18 verbose adduser userobj { name: 'will-loderhose',
+18 verbose adduser   salt: 'XXXXX',
+18 verbose adduser   password_sha: 'XXXXX',
+18 verbose adduser   email: 'will.loderhose@gmail.com',
+18 verbose adduser   _id: 'org.couchdb.user:will-loderhose',
+18 verbose adduser   type: 'user',
+18 verbose adduser   roles: [],
+18 verbose adduser   date: '2013-11-13T19:54:53.233Z' }
+19 verbose url raw /-/user/org.couchdb.user:will-loderhose/-rev/1-5583067f85697eeb48cd6a91a309794c
+20 verbose url resolving [ 'https://registry.npmjs.org/',
+20 verbose url resolving   './-/user/org.couchdb.user:will-loderhose/-rev/1-5583067f85697eeb48cd6a91a309794c' ]
+21 verbose url resolved https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose/-rev/1-5583067f85697eeb48cd6a91a309794c
+22 info trying registry request attempt 1 at 14:54:55
+23 http PUT https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose/-rev/1-5583067f85697eeb48cd6a91a309794c
+24 http 409 https://registry.npmjs.org/-/user/org.couchdb.user:will-loderhose/-rev/1-5583067f85697eeb48cd6a91a309794c
+25 verbose adduser back [ [Error: conflict Document update conflict.: -/user/org.couchdb.user:will-loderhose/-rev/1-5583067f85697eeb48cd6a91a309794c],
+25 verbose adduser   { error: 'conflict', reason: 'Document update conflict.' },
+25 verbose adduser   '{"error":"conflict","reason":"Document update conflict."}' ]
+26 error Error: conflict Document update conflict.: -/user/org.couchdb.user:will-loderhose/-rev/1-5583067f85697eeb48cd6a91a309794c
+26 error     at RegClient.<anonymous> (/usr/local/Cellar/node/0.10.18/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:272:14)
+26 error     at Request.self.callback (/usr/local/Cellar/node/0.10.18/lib/node_modules/npm/node_modules/request/index.js:148:22)
+26 error     at Request.EventEmitter.emit (events.js:98:17)
+26 error     at Request.<anonymous> (/usr/local/Cellar/node/0.10.18/lib/node_modules/npm/node_modules/request/index.js:891:14)
+26 error     at Request.EventEmitter.emit (events.js:117:20)
+26 error     at IncomingMessage.<anonymous> (/usr/local/Cellar/node/0.10.18/lib/node_modules/npm/node_modules/request/index.js:842:12)
+26 error     at IncomingMessage.EventEmitter.emit (events.js:117:20)
+26 error     at _stream_readable.js:920:16
+26 error     at process._tickCallback (node.js:415:13)
+27 error If you need help, you may report this log at:
+27 error     <http://github.com/isaacs/npm/issues>
+27 error or email it to:
+27 error     <npm-@googlegroups.com>
+28 error System Darwin 13.0.0
+29 error command "/usr/local/Cellar/node/0.10.18/bin/node" "/usr/local/bin/npm" "login"
+30 error cwd /Users/fidwill/Projects/pagerduty-bot
+31 error node -v v0.10.18
+32 error npm -v 1.3.8
+33 verbose exit [ 1, true ]
