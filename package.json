@@ -9,9 +9,9 @@
     "type":"git",
     "url":"git://github.com/Will-Loderhose/pagerduty-bot"
   },
-  "main": "./lib/pd.js",
+  "main": "./lib/pd",
   "bin": {
-    "pd": "./bin/pd"
+    "pagerduty-bot": "./bin/pd"
   },
   "dependencies": {
    "wobot" : "git+ssh://git@github.com:Will-Loderhose/wobot.git#master",
@@ -24,6 +24,6 @@
     "debug" : "~0.7.2"
   },
   "engines": {
-    "node": ">= 0.4.1 < 0.7.0"
+    "node": "*"
   }
 }
