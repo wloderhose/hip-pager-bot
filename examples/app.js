@@ -39,10 +39,10 @@ app.post('/new', function(req, res) {
 		req.flash('error', 'Please provide a description for this issue');
 		res.redirect('/');
 	} else {
-		pd.trigger(description, {'Escalated_through' : 'SupportBot Dashboard'}, function(err, success) {
+		pd.trigger(description, {'Escalated_through' : 'Web Dashboard'}, function(err, success) {
 			if(err || !success) {
 				console.error(err);
-				req.flash('error', 'There was an error with SupportBot. Please contact an engineer for help or try using SupportBot on HipChat');
+				req.flash('error', 'There was an error with Hipchat bot.');
 				res.redirect('/');
 			} else {
 				req.flash('success', 'Your issue was escalated successfully to the engineer on duty');
@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 				for(var i = 0; i < list.length; i += 1) {
 					incidents.push(parse_incident(list[i]));
 				}
-				res.render('index', {title : 'SupportBot', page : 'dashboard', error: req.flash('error'), success: req.flash('success'), incidents: incidents, on_call: on_call.name});
+				res.render('index', {title : 'HipChat Bot Dashboard', page : 'dashboard', error: req.flash('error'), success: req.flash('success'), incidents: incidents, on_call: on_call.name});
 			}
 		});
 	});
