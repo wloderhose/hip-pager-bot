@@ -23,7 +23,12 @@ var bot = pd.hipbot({
 //----------------------------------------------------------------------
 
 // Frequent bot responses
-var responses;
+var responses = {
+	blank : '',
+	info : '',
+	help : '',
+	error : ''
+};
 
 // Blank response
 var str = '';
