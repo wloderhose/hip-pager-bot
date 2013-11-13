@@ -15,10 +15,7 @@
   },
   "dependencies": {
    "wobot" : "git+ssh://git@github.com:Will-Loderhose/wobot.git#master",
-   "moment" : "~2.2.1",
-   "express" : "3.x",
-   "jade" : "*",
-   "connect-flash" : "git://github.com/jaredhanson/connect-flash.git"
+   "moment" : "~2.2.1"
   },
   "engines": {
     "node": "v0.10.22"
