@@ -1,7 +1,7 @@
 # pagerduty-bot
 
 Create and customize a HipChat bot that interacts with PagerDuty.
-Written in [nodejs.org](node).
+Written in [node](http://nodejs.org).
 
 ## Installation
 
@@ -9,14 +9,15 @@ Written in [nodejs.org](node).
 
 ## Getting Started
 
-This README assumes you already have a [https://www.hipchat.com/](HipChat) and a [http://www.pagerduty.com/](PagerDuty) account.
+This README assumes you already have a [HipChat](https://www.hipchat.com/) and a [PagerDuty](http://www.pagerduty.com/) account.
 
 There are two node modules included in the package: `pd` and `hipbot`.
 
 * `pd` Includes all the methods used to interact with the PagerDuty developer API
 * `hipbot` Creates a HipChat bot and includes methods that allow bot customization
 
-Create a PagerDuty object which contains all the methods used to interact with the PagerDuty API:
+
+First, create a PagerDuty object which contains all the methods used to interact with the PagerDuty API...
 ```js
 var pd = require('pagerduty-bot').set({
 	subdomain : '??????'
@@ -26,13 +27,14 @@ var pd = require('pagerduty-bot').set({
 });
 ```
 
- - `subdomain` Your subdomain in PagerDuty.
- - `api_key` A valid API access key from PagerDuty.
- - `service_key` API key for specific PagerDuty service.
+ - `subdomain` Your subdomain in PagerDuty
+ - `api_key` A valid API access key from PagerDuty
+ - `service_key` API key for specific PagerDuty service
  - `service_ID` ID for a PagerDuty service. This is the service incidents will be created on by the bot. You can find by going to the service on PagerDuty and copying the 7 digit ID from the end of the URL
 
-First, create a new user in HipChat for your bot. (This requires admin access)
-Connect to your HipChat bot:
+Make sure you have created a new user in HipChat for your bot. (This requires HipChat admin access)
+
+Now, Connect to your HipChat bot:
 ```js
 var hipbot = pd.hipbot({
 	jid : '???????@chat.hipchat.com/bot',
@@ -69,7 +71,7 @@ Set a value for a specific PagerDuty parameter.
 
 Get the person who is currently on call for the current PagerDuty service.
 
- - `callback` Funciton in the form of `function(err, on_call)`
+ - `callback` Function in the form of `function(err, on_call)`
  	- `on_call` An object conatining information such as name and email
 
 ### pd.list(status, callback)
@@ -78,12 +80,12 @@ Get a list of incidents associated with the current PagerDuty service.
 These incidents can be sorted by status.
 
  - `status` String that determines what kind of incidents should be included in the list
- 	- `t` Include triggered
- 	- `a` Include acknowledged
- 	- `r` Include resolved
- 	- `all` Include all
- 	- Any combination will include multiple such as `at` which will return all acknowledged and triggered but not resolved
- - `callback` Function in the form of `function(err, list)
+ 	- `'t'` Include triggered
+ 	- `'a'` Include acknowledged
+ 	- `'r'` Include resolved
+ 	- `'all'` Include all
+ 	- Any combination will include multiple such as `'at'` which will return all acknowledged and triggered but not resolved
+ - `callback` Function in the form of `function(err, list)`
  	- `list` An array of incident objects
 
 ### pd.trigger(description, details, callback)
@@ -105,7 +107,7 @@ Get a property of the bot.
 
 Set function to fire when the bot pings (every 30 seconds)
 
- - `callback` The funciton that fires on ping
+ - `callback` A funciton that fires on ping
 
 ### bot.onInvite(accept, callback)
 
@@ -133,9 +135,7 @@ Send a public message from the bot to a user on HipChat.
 
 ## Creating Commands
 
-The HipChat bot will respond to public messages in HipChat. The first word after the bot's mention is called a `command`.
-
- - For example: `@bot` help
+The HipChat bot will respond to public messages in HipChat. The first word after the bot's mention is called a command.
 
 The bot has a list of valid commands it will respond to which is completely customizable. You can also set what should happen on empty message and invalid commands.
 
@@ -154,7 +154,7 @@ Create and add a new command to the bot's list of valid commands.
 
 Examples:
 
-Respond with a simple message everyime someone says hi to the bot...
+Respond with a simple message every time someone says hi to the bot...
 ```js
 bot.onCommand('hello', 'Hi! I am a robot!');
 ```
@@ -211,8 +211,15 @@ bot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
 })
 ```
 
+## About
+
+Author: Will Loderhose
+Version: 0.1.0
+
 ## License
 
 Apache License
+
 Version 2.0, January 2004
+
 http://www.apache.org/licenses/
