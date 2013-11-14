@@ -169,12 +169,15 @@ hipbot.onCommand('log', function(body, roomJid, fromName) {
 Solve math expressions...
 ```js
 hipbot.onCommand('math', function(body, roomJid, fromName, callback) {
-	var ans = eval(body);
-	if(ans == null) {
-		callback(fromName + ', that is an invalid Mathematic Expression');
-	} else {
-		callback(fromName + ', the answer is ' + ans);
-	}
+    var ans;
+    try {
+    	ans = require('mathjs')().eval(body);
+    } catch(e) {}
+    if(ans == null) {
+        callback(fromName + ', that is an invalid Mathematic Expression');
+    } else {
+        callback(ans);
+    }
 });
 ```
 
