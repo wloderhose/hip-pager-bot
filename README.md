@@ -221,7 +221,7 @@ Read more about webhooks [here](http://http://www.pagerduty.com/docs/guides/hipc
 
 Forking this repository and making your own changes to fit your PagerDuty needs is highly recommended! 
 
-Read more about working with the PagerDuty API [here](http://http://developer.pagerduty.com/documentation/rest)
+Read more about working with the PagerDuty REST API [here](http://developer.pagerduty.com/documentation/rest)
 
 ## About
 
