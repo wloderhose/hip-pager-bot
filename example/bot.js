@@ -4,38 +4,22 @@ var moment = require('moment');
 
 /* Edit these variables to match your HipChat and PagerDuty credentials
 ----------------------------------------------------------------------*/
-// var pd = require('pagerduty-bot').set({
-// 	subdomain : '??????'
-// 	api_key : '???????????',
-// 	service_key : '???????????',
-// 	service_ID : '??????'
-// });
-// var bot = pd.hipbot({
-// 	jid : '???????@chat.hipchat.com/bot',
-// 	password : '???????????',
-// 	rooms : ['??????@conf.hipchat.com'],
-// 	mention : 'bot',
-// 	name : 'PagerDuty Bot',
-// 	description : 'I am here to help!',
-// 	version : '???????'
-// });
-//----------------------------------------------------------------------
-var isProd = false;
-var pd = require('../lib/pd').set({
-	subdomain : 'quickcue',
-	api_key : 'S7NAEZSiqkassv2C91Bb',
-	service_key : 'ad303456305f491881524165c2be7702',
-	service_ID : 'PETJXVU'
+var pd = require('pagerduty-bot').set({
+	subdomain : '??????'
+	api_key : '???????????',
+	service_key : '???????????',
+	service_ID : '??????'
 });
 var bot = pd.hipbot({
-	jid : '16050_463535@chat.hipchat.com/bot',
-	password : 'f011a9f327f190b5898a4b5c1d76eb',
-	rooms : ['16050_support-bot_testing@conf.hipchat.com'],
-	mention : 'SupportBot',
-	name : 'Support Bot',
+	jid : '???????@chat.hipchat.com/bot',
+	password : '???????????',
+	rooms : ['??????@conf.hipchat.com'],
+	mention : 'bot',
+	name : 'PagerDuty Bot',
 	description : 'I am here to help!',
-	version : '0.1.0'
+	version : '???????'
 });
+//----------------------------------------------------------------------
 
 // Frequent bot responses
 var responses = {

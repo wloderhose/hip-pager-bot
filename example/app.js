@@ -1,7 +1,6 @@
 // Example using pagerduty-bot to create a web app in express using jade and bootstrap
 
 var moment = require('moment');
-var fs = require('fs');
 var flash = require('connect-flash');
 var http = require('http');
 var express = require('express');
@@ -10,10 +9,12 @@ var jade = require('jade');
 /* Edit these variables to match your PagerDuty credentials
 ----------------------------------------------------------------------*/
 var pd = require('pagerduty-bot').set({
-	auth_token : '???????????',
+	subdomain : '???????????',
 	api_key : '???????????',
-	service_key : '???????????'
+	service_key : '???????',
+	service_ID : '???????'
 });
+//----------------------------------------------------------------------
 
 var app = express().disable('x-powered-by');
 app.engine('jade', jade.__express);
@@ -24,7 +25,6 @@ app.use(express.bodyParser());
 app.use(express.cookieParser('g73Aafg2gs3'));
 app.use(express.session());
 app.use(flash());
-app.use(app.router);
 
 app.use(function(err, req, res, next) {
 	console.error(err.stack);
