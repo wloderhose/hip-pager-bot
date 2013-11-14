@@ -5,11 +5,10 @@ var moment = require('moment');
 /* Edit these variables to match your HipChat and PagerDuty credentials
 ----------------------------------------------------------------------*/
 // var pd = require('pagerduty-bot').set({
-// 	host_name : '??????'
+// 	subdomain : '??????'
 // 	api_key : '???????????',
 // 	service_key : '???????????',
-// 	service_ID : '??????',
-//  schedule_ID : '??????'
+// 	service_ID : '??????'
 // });
 // var bot = pd.hipbot({
 // 	jid : '???????@chat.hipchat.com/bot',
@@ -23,11 +22,10 @@ var moment = require('moment');
 //----------------------------------------------------------------------
 var isProd = false;
 var pd = require('../lib/pd').set({
-	host_name : 'quickcue',
+	subdomain : 'quickcue',
 	api_key : 'S7NAEZSiqkassv2C91Bb',
 	service_key : 'ad303456305f491881524165c2be7702',
-	service_ID : 'PETJXVU',
-	schedule_ID : 'PQFIUUS'
+	service_ID : 'PETJXVU'
 });
 var bot = pd.hipbot({
 	jid : '16050_463535@chat.hipchat.com/bot',
