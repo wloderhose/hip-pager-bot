@@ -1,4 +1,4 @@
-// Example using pagerduty-bot to create a HipChat bot
+// Example using hip-pager-bot to create a HipChat bot
 
 var moment = require('moment');
 
@@ -31,7 +31,7 @@ var responses = {
 
 // Blank response
 var str = '';
-str += 'Hello. I am PagerDuty Bot.';
+str += 'Hello. I am Hip-Pager Bot.';
 str += '\nType "help" for a list of approved commands.';
 str += '\nType "info" for more information about me.';
 responses.blank = str;
@@ -56,10 +56,10 @@ responses.info = str;
 
 // Error response
 var str = '';
-str += '\nI\'m sorry, an error has occured with ' + bot.get('name') + '. Please contact an engineer so the problem can be fixed.';
+str += '\nI\'m sorry, an error has occured with ' + bot.get('name');
 responses.error = str;
 
-// Respond with who is currently on duty
+// Respond with who is currently on call
 bot.onCommand('who', function(body, roomJid, fromName, callback) {
 	pd.who(function(err, onCall) {
 		if(err) {
@@ -118,7 +118,7 @@ bot.onCommand('msg', function(body, roomJid, fromName) {
 				receiver = onCall.name;
 			} else {
 				receiver = fromName;
-				str += '\n(The bot is currenty running in testing mode so the message was sent back to you instead of the on call engineer.)';
+				str += '\n(The bot is currenty running in testing mode so the message was sent back to you instead of the on call user.)';
 			}
 			bot.sendMessage(str, roomJid, fromName);
 		}

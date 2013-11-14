@@ -1,11 +1,11 @@
-# pagerduty-bot
+# hip-pager-bot
 
 Create and customize a HipChat bot that interacts with PagerDuty.
 Written in [node](http://nodejs.org).
 
 ## Installation
 
-    $ npm install pagerduty-bot
+    $ npm install hip-pager-bot
 
 ## Getting Started
 
@@ -19,7 +19,7 @@ There are two node modules included in the package: `pd` and `hipbot`.
 
 First, create a PagerDuty object which contains all the methods used to interact with the PagerDuty API...
 ```js
-var pd = require('pagerduty-bot').set({
+var pd = require('hip-pager-bot').set({
 	subdomain : '??????'
 	api_key : '???????????',
 	service_key : '???????????',

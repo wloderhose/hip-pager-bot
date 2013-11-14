@@ -1,13 +1,13 @@
 {
-  "name": "pagerduty-bot",
+  "name": "hip-pager-bot",
   "version": "0.1.0",
   "description": "Create and customize a HipChat bot that interacts with PagerDuty.",
   "keywords": ["bot", "hipchat", "pagerduty", "node", "api", "proxy", "rest"],
-  "homepage": "https://github.com/Will-Loderhose/pagerduty-bot",
+  "homepage": "https://github.com/Will-Loderhose/hip-pager-bot",
   "author": "Will Loderhose",
   "repository": {
     "type":"git",
-    "url":"git://github.com/Will-Loderhose/pagerduty-bot"
+    "url":"git://github.com/Will-Loderhose/hip-pager-bot"
   },
   "main": "./lib/pd",
   "bin": {

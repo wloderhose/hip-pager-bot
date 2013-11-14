@@ -3,17 +3,17 @@ block navbar
   .navbar.navbar-inverse.navbar
     .container
       .navbar-header
-        a.navbar-brand(href='/') HipChat Bot
+        a.navbar-brand(href='/') Hip-Pager Bot
 block dashboard
   .container
-    h2(class="text-center text-info") Welcome to the PagerDuty Bot Dashboard.
+    h2(class="text-center text-info") Welcome to the Hip-Pager Bot Dashboard.
     if(on_call!=null)
       h5(class="text-center")
         span(class="text") #{on_call}
         span 
           | is the engineer on call today.
     else
-      h6(class="text-center") The PagerDuty is currently having trouble figuring out who is on call. We are sorry for the inconvenience.
+      h6(class="text-center") The bot is currently having trouble figuring out who is on call. We are sorry for the inconvenience.
     h1(padding="5px")
     form(role="form", action="/new", method="post")
       .container

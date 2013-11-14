@@ -1,4 +1,4 @@
-// Example using pagerduty-bot to create a web app in express using jade and bootstrap
+// Example using hip-pager-bot to create a web app in express using jade and bootstrap
 
 var moment = require('moment');
 var flash = require('connect-flash');
@@ -8,7 +8,7 @@ var jade = require('jade');
 
 /* Edit these variables to match your PagerDuty credentials
 ----------------------------------------------------------------------*/
-var pd = require('pagerduty-bot').set({
+var pd = require('hip-pager-bot').set({
 	subdomain : '???????????',
 	api_key : '???????????',
 	service_key : '???????',
