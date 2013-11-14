@@ -4,7 +4,7 @@ var moment = require('moment');
 
 /* Edit these variables to match your HipChat and PagerDuty credentials
 ----------------------------------------------------------------------*/
-var pd = require('pagerduty-bot').set({
+var pd = require('hip-pager-bot').set({
 	subdomain : '??????'
 	api_key : '???????????',
 	service_key : '???????????',
