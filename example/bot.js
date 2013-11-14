@@ -4,23 +4,40 @@ var moment = require('moment');
 
 /* Edit these variables to match your HipChat and PagerDuty credentials
 ----------------------------------------------------------------------*/
-var pd = require('pagerduty-bot').set({
-	auth_token : '???????????',
-	api_key : '???????????',
-	service_key : '???????????',
-	schedule_key : '???????????',
-	policy_key : '???????????'
+// var pd = require('pagerduty-bot').set({
+// 	host_name : '??????'
+// 	api_key : '???????????',
+// 	service_key : '???????????',
+// 	service_ID : '??????',
+//  schedule_ID : '??????'
+// });
+// var bot = pd.hipbot({
+// 	jid : '???????@chat.hipchat.com/bot',
+// 	password : '???????????',
+// 	rooms : ['??????@conf.hipchat.com'],
+// 	mention : 'bot',
+// 	name : 'PagerDuty Bot',
+// 	description : 'I am here to help!',
+// 	version : '???????'
+// });
+//----------------------------------------------------------------------
+var isProd = false;
+var pd = require('../lib/pd').set({
+	host_name : 'quickcue',
+	api_key : 'S7NAEZSiqkassv2C91Bb',
+	service_key : 'ad303456305f491881524165c2be7702',
+	service_ID : 'PETJXVU',
+	schedule_ID : 'PQFIUUS'
 });
 var bot = pd.hipbot({
-	jid : '???????@chat.hipchat.com/bot',
-	password : '???????????',
-	rooms : ['??????@conf.hipchat.com'],
-	mention : 'bot',
-	name : 'PagerDuty Bot',
+	jid : '16050_463535@chat.hipchat.com/bot',
+	password : 'f011a9f327f190b5898a4b5c1d76eb',
+	rooms : ['16050_support-bot_testing@conf.hipchat.com'],
+	mention : 'SupportBot',
+	name : 'Support Bot',
 	description : 'I am here to help!',
-	version : '???????'
+	version : '0.1.0'
 });
-//----------------------------------------------------------------------
 
 // Frequent bot responses
 var responses = {
@@ -106,19 +123,22 @@ bot.onCommand('list', function(body, roomJid, fromName, callback) {
 });
 
 // Send a message to the user on call through HipChat
-bot.onCommand('msg', function(body, room, from, callback) {
+bot.onCommand('msg', function(body, roomJid, fromName) {
 	pd.who(function(err, onCall) {
 		if(err) {
 			callback(responses.error);
+		} else if(onCall == null) {
+			callback('No one is on call.');
 		} else {
-			var str = ' > message from ' + from + ':\n' + body;
-			var receiver = from;
+			var str = '> message from ' + fromName + ':\n' + body;
+			var receiver = fromName;
 			if(isProd) {
 				receiver = onCall.name;
 			} else {
+				receiver = fromName;
 				str += '\n(The bot is currenty running in testing mode so the message was sent back to you instead of the on call engineer.)';
 			}
-			callback(str);
+			bot.sendMessage(str, roomJid, fromName);
 		}
 	});
 });
