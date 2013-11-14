@@ -97,19 +97,19 @@ Trigger a new incident in the current PagerDuty service.
  - `callback` Function in the form of `function(err, success)
  	- `success` A boolean returning true on a succesful trigger
 
-### bot.get(key)
+### hipbot.get(key)
 
 Get a property of the bot.
 
  - `key` The name of the property
 
-### bot.onPing(callback)
+### hipbot.onPing(callback)
 
 Set function to fire when the bot pings (every 30 seconds)
 
  - `callback` A funciton that fires on ping
 
-### bot.onInvite(accept, callback)
+### hipbot.onInvite(accept, callback)
 
 Emitted when the bot is invited to join a room in HipChat
 
@@ -119,13 +119,13 @@ Emitted when the bot is invited to join a room in HipChat
  	- `fromJid` The jid of the user who invited the bot
  	- `reason` The reason given if any
 
-### bot.joinRoom(roomJid)
+### hipbot.joinRoom(roomJid)
 
 Add another room to the list of rooms joined on connection.
 
  - `roomJid` The jid of the HipChat room
 
-### bot.sendMessage(message, roomJid, fromName)
+### hipbot.sendMessage(message, roomJid, fromName)
 
 Send a public message from the bot to a user on HipChat.
 
@@ -139,7 +139,7 @@ The HipChat bot will respond to public messages in HipChat. The first word after
 
 The bot has a list of valid commands it will respond to which is completely customizable. You can also set what should happen on empty message and invalid commands.
 
-### bot.onCommand(command, response)
+### hipbot.onCommand(command, response)
 
 Create and add a new command to the bot's list of valid commands.
 
@@ -156,19 +156,19 @@ Examples:
 
 Respond with a simple message every time someone says hi to the bot...
 ```js
-bot.onCommand('hello', 'Hi! I am a robot!');
+hipbot.onCommand('hello', 'Hi! I am a robot!');
 ```
 
 Print to the console when someone messages the bot with a log command...
 ```js
-bot.onCommand('log', function(body, roomJid, fromName) {
+hipbot.onCommand('log', function(body, roomJid, fromName) {
 	console.log('Logged by ' + fromName + ' -> ' + body);
 });
 ```
 
 Solve math expressions...
 ```js
-bot.onCommand('math', function(body, roomJid, fromName, callback) {
+hipbot.onCommand('math', function(body, roomJid, fromName, callback) {
 	var ans = eval(body);
 	if(ans == null) {
 		callback(fromName + ', that is an invalid Mathematic Expression');
@@ -178,7 +178,7 @@ bot.onCommand('math', function(body, roomJid, fromName, callback) {
 });
 ```
 
-### bot.onBlank(callback)
+### hipbot.onBlank(callback)
 
 Set a function to fire everytime the bot is message with a blank message.
 
@@ -189,12 +189,12 @@ Set a function to fire everytime the bot is message with a blank message.
 
 Example:
 ```js
-bot.onBlank(function(roomJid, fromName, callback) {
+hipbot.onBlank(function(roomJid, fromName, callback) {
 	callback('You just sent me a blank message!');
 })
 ```
 
-### bot.onInvalid(callback)
+### hipbot.onInvalid(callback)
 
 Set a function to fire everytime the bot is message with a blank message.
 
@@ -206,7 +206,7 @@ Set a function to fire everytime the bot is message with a blank message.
 
 Example:
 ```js
-bot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
+hipbot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
 	callback(invalidCommand + ' is not a valid command');
 })
 ```
