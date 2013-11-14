@@ -211,9 +211,22 @@ bot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
 })
 ```
 
+## Webhooks
+
+You can easily create webhooks that will ping HipChat rooms when incidents are triggered, acknowledged, or resolved in PagerDuty.
+
+Read more about webhooks [here](http://http://www.pagerduty.com/docs/guides/hipchat-integration-guide/)
+
+## Fork Me!
+
+Forking this repository and making your own changes to fit your PagerDuty needs is highly recommended! 
+
+Read more about working with the PagerDuty API [here](http://http://developer.pagerduty.com/documentation/rest)
+
 ## About
 
 Author: Will Loderhose
+
 Version: 0.1.0
 
 ## License
