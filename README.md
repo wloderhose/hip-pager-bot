@@ -3,7 +3,7 @@
 Create and customize a HipChat bot that interacts with PagerDuty.
 Written in [node](http://nodejs.org).
 
-You can also find this package in the [npm directory](https://npmjs.org/package/hip-pager-bot#readme)
+You can also find this package in the [npm directory](https://npmjs.org/package/hip-pager-bot)
 
 ## Installation
 
