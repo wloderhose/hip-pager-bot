@@ -1,6 +1,6 @@
 {
   "name": "hip-pager-bot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create and customize a HipChat bot that interacts with PagerDuty.",
   "keywords": ["bot", "hipchat", "pagerduty", "node", "api", "proxy", "rest"],
   "homepage": "https://github.com/Will-Loderhose/hip-pager-bot",
@@ -23,6 +23,6 @@
     "connect-flash" : "git://github.com/jaredhanson/connect-flash.git"
   },
   "engines": {
-    "node": "v0.10.22"
+    "node": ">=0.10.3 <0.12"
   }
 }
