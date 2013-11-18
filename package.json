@@ -9,10 +9,7 @@
     "type":"git",
     "url":"git://github.com/Will-Loderhose/hip-pager-bot"
   },
-  "main": "./lib/pd",
-  "bin": {
-    "pagerduty-bot": "./bin/pd"
-  },
+  "main": "./lib/pd.js",
   "dependencies": {
    "wobot" : "git+ssh://git@github.com:Will-Loderhose/wobot.git#master",
    "moment" : "~2.2.1"
@@ -23,6 +20,10 @@
     "connect-flash" : "git://github.com/jaredhanson/connect-flash.git"
   },
   "engines": {
-    "node": ">=0.10.3 <0.12"
-  }
+    "node": ">=0.10.3"
+  },
+  "licenses" : [{
+    "type": "Apache",
+    "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+  }]
 }
