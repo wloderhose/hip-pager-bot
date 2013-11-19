@@ -33,39 +33,43 @@ app.use(function(err, req, res, next) {
 
 app.post('/new', function(req, res) {
 	var description = req.body.description;
-	if(description == null || description == '' || description.split(' ').length == 0) {
-		req.flash('error', 'Please provide a description for this issue');
-		res.redirect('/');
-	} else {
-		pd.trigger(description, {'Escalated_through' : 'Web Dashboard'}, function(err, success) {
-			if(err || !success) {
-				console.error(err);
-				req.flash('error', 'There was an error with Hipchat bot.');
-				res.redirect('/');
-			} else {
-				req.flash('success', 'Your issue was escalated successfully to the engineer on duty');
-				res.redirect('/');
-			}
-		});
-	}
+		if(description == null || description == '' || description.split(' ').length == 0) {
+			req.flash('error', 'Please provide a description for this issue.');
+			res.redirect('/');
+		} else {
+			pd.trigger(description, {'Escalated_through' : 'Web Dashboard'}, function(err, success) {
+				console.log(description);
+				if(err || !success) {
+					console.error('ERROR: could not escalate request');
+					req.flash('error', 'There was an error with Hip-Pager Bot.');
+					res.redirect('/');
+				} else if(success) {
+					req.flash('success', 'Your issue was escalated successfully to the user on duty.');
+					res.redirect('/');
+				}
+			});
+		}
 });
 
 app.get('/', function(req, res) {
-	pd.who(function(err1, on_call) {
-		if(err1) {
-			console.error(err1);
-		}
-		pd.list('at', function(err2, list) {
-			if(err2) {
-				console.error(err2);
-			} else {
-				var incidents = [];
-				for(var i = 0; i < list.length; i += 1) {
-					incidents.push(parse_incident(list[i]));
+	pd.who(function(err, on_call) {
+		if(err) {
+			console.error(err);
+		} else if(on_call == null) {
+			callback('There is currently no one on call');
+		} else {
+			pd.list('at', function(err, list) {
+				if(err) {
+					console.error(err);
+				} else {
+					var incidents = [];
+					for(var i = 0; i < list.length; i += 1) {
+						incidents.push(parse_incident(list[i]));
+					}
+					res.render('index', {title : 'Hip-Pager Web Dashboard', page : 'dashboard', error: req.flash('error'), success: req.flash('success'), incidents: incidents, on_call: on_call.name});
 				}
-				res.render('index', {title : 'HipChat Bot Dashboard', page : 'dashboard', error: req.flash('error'), success: req.flash('success'), incidents: incidents, on_call: on_call.name});
-			}
-		});
+			});
+		}
 	});
 });
 
