@@ -38,13 +38,12 @@ app.post('/new', function(req, res) {
 			res.redirect('/');
 		} else {
 			pd.trigger(description, {'Escalated_through' : 'Web Dashboard'}, function(err, success) {
-				console.log(description);
 				if(err || !success) {
 					console.error('ERROR: could not escalate request');
 					req.flash('error', 'There was an error with Hip-Pager Bot.');
 					res.redirect('/');
 				} else if(success) {
-					req.flash('success', 'Your issue was escalated successfully to the user on duty.');
+					req.flash('success', 'Your issue was escalated successfully to the user on call.');
 					res.redirect('/');
 				}
 			});
@@ -72,5 +71,42 @@ app.get('/', function(req, res) {
 		}
 	});
 });
+
+function parse_incident(incident) {
+	var statusTime = moment(incident.last_status_change_on).format('dddd, MMMM Do YYYY, h:mm:ss a');
+
+	var description;
+	if(incident.trigger_summary_data.description == null) {
+		description = 'NONE';
+	} else {
+		description = incident.trigger_summary_data.description;
+	}
+
+	var assigned_to;
+	if(incident.assigned_to_user == null) {
+		assigned_to = 'NONE ASSIGNED';
+	} else {
+		assigned_to = incident.assigned_to_user.name;
+	}
+
+	var status;
+	if(incident.status == 'triggered') {
+		status = 'Unacknowledged';
+	} else if(incident.status == 'acknowledged') {
+		status = 'Acknowledged';
+	} else if(incident.status == 'resolved') {
+		status = 'Resolved';
+	}
+
+	var display = {
+		incident_number : incident.incident_number,
+		created_on : moment(incident.created_on).format('dddd, MMMM Do YYYY, h:mm:ss a'),
+		description : description,
+		assigned_to : assigned_to,
+		status : status
+	};
+
+	return display;
+}
 
 app.listen(8000);

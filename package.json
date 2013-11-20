@@ -20,7 +20,7 @@
     "connect-flash" : "git://github.com/jaredhanson/connect-flash.git"
   },
   "engines": {
-    "node": ">=0.10.3"
+    "node": ">= 0.4.1"
   },
   "licenses" : [{
     "type": "Apache",
