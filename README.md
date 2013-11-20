@@ -231,8 +231,6 @@ Read more about working with the PagerDuty REST API [here](http://developer.page
 
 Author: Will Loderhose
 
-Version: 0.1.0
-
 ## License
 
 Apache License
