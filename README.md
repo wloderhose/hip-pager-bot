@@ -155,7 +155,7 @@ Create and add a new command to the bot's list of valid commands.
 
 Examples:
 
-Respond with a simple message every time someone says hi to the bot...
+Respond with a simple message every time someone says "hello" to the bot...
 ```js
 hipbot.onCommand('hello', 'Hi! I am a robot!');
 ```
@@ -167,7 +167,7 @@ hipbot.onCommand('log', function(body, roomJid, fromName) {
 });
 ```
 
-Solve math expressions...
+Solve math expressions and send a message back to the user...
 ```js
 hipbot.onCommand('math', function(body, roomJid, fromName, callback) {
     var ans;
@@ -226,10 +226,6 @@ Read more about webhooks [here](http://www.pagerduty.com/docs/guides/hipchat-int
 Forking this repository and making your own changes to fit your PagerDuty needs is highly recommended! 
 
 Read more about working with the PagerDuty REST API [here](http://developer.pagerduty.com/documentation/rest).
-
-## About
-
-Author: Will Loderhose
 
 ## License
 
