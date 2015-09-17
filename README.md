@@ -50,7 +50,7 @@ var hipbot = pd.hipbot({
 
  - `jid` The jid of your HipChat bot
  - `password` The password of your HipChat bot
- - `rooms` An array of every room jid you want the bot to join on connection
+ - `rooms` An array of every room xmpp_jid you want the bot to join on connection
  - `mention` The mention name of your HipChat bot (comes after the `@`)
  - `name` [optional] The name of your HipChat bot
  - `description` [optional] A description of your HipChat bot
