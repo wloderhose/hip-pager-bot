@@ -64,6 +64,7 @@ First, [create two API tokens here](https://wloderhose.hipchat.com/account/api).
 To create the HTTP request, copy and paste the following two commands into a UNIX shell (such as OS X Terminal or Cygwin). Insert the `name`, `mention`, `password`, and `email` of your new HipChat user, which will become your bot. Insert the HipChat API tokens that you just created in their respective places.
 
 `curl -H "Content-Type: application/json" -X POST -d {"name": "[name]", "mention_name" : "[mention_name]", "password" : "[password]", "email" : "[email]"} https://api.hipchat.com/v2/user/?auth_token=[create_user_token]`
+
 `curl -X GET https://api.hipchat.com/v2/user/[email]?auth_token=[view_group_token]`
 
 In the response body, find `xmpp_jid`, and save it. You are about to use it to connect your bot.
@@ -178,7 +179,7 @@ Create and add a new command to the bot's list of valid commands.
  		- `fromName` The name of the HipChat user who messaged the bot
  		- `callback` [optional] Function in the form callback(message)
 
-Examples:
+*Examples:*
 
 Respond with a simple message every time someone says "hello" to the bot...
 ```js
@@ -240,7 +241,7 @@ hipbot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
 });
 ```
 
-## Why do I have to ask?
+## Why Do I Have to Ask?
 
 I can hear you now, *"Sure, it's great that I can ask my bot about the current list of PagerDuty incidents, but what if I want to know about them as soon as they happen?"*
 
@@ -248,7 +249,12 @@ Well, thankfully, PagerDuty and HipChat already took care of that for you by cre
 
 To learn how to do that: [Create A PagerDuty Webhook!](http://www.pagerduty.com/docs/guides/hipchat-integration-guide/)
 
+## Handing Over the Reigns
+The rest is up to you. Hip-pager-bot provides a good foundation for you, but there is a lot more that could be done with it. Get creative, see what you can come up with. Feel free to submit a pull request if you have an idea or an improvement.
+
 To learn more about working with the PagerDuty API: [PagerDuty REST API!](http://developer.pagerduty.com/documentation/rest)
+
+
 
 ## Legal Stuff
 
