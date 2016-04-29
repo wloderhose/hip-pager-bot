@@ -12,7 +12,9 @@ Currently, this module is dependent on [node-xmpp](https://www.npmjs.com/package
 
 ## Overview
 
-Your bot is capable of both sending and retrieving information to and from PagerDuty. For example, your bot can tell you who is currently on call, relay details about the latest incident, or trigger a new incident, all without even opening PagerDuty in the browser. Your bot is also capable of doing completely non-PagerDuty things, like telling you about the weather, or whatever you can think of, really. The sky is the limit!
+Your bot is capable of both sending and retrieving information to and from PagerDuty. For example, your bot can tell you who is currently on call, relay details about the latest incident, or trigger a new incident, all without even opening PagerDuty in the browser. Your bot is also capable of doing completely non-PagerDuty things, like telling you about the weather, or whatever you can think of, really.
+
+As you setup your first bot, be sure to refer to the [example](examples/bot.js) to see it in action.
 
 ## Getting Started
 
@@ -242,22 +244,18 @@ hipbot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
 ```
 
 ## Why Do I Have to Ask?
-
 I can hear you now, *"Sure, it's great that I can ask my bot about the current list of PagerDuty incidents, but what if I want to know about them as soon as they happen?"*
 
 Well, thankfully, PagerDuty and HipChat already took care of that for you by creating what's called a webhook. You can easily create webhooks that will immediately ping HipChat rooms when incidents are triggered, acknowledged, or resolved in PagerDuty.
 
 To learn how to do that: [Create A PagerDuty Webhook!](http://www.pagerduty.com/docs/guides/hipchat-integration-guide/)
 
-## Handing Over the Reigns
-The rest is up to you. Hip-pager-bot provides a good foundation for you, but there is a lot more that could be done with it. Get creative, see what you can come up with. Feel free to submit a pull request if you have an idea or an improvement.
+## What Next?
+The rest is up to you. Hip-pager-bot provides a basic foundation for you, but there is a lot more that could be done with it. Get creative, see what you can come up with. Feel free to submit a pull request if you have an idea or an improvement.
 
 To learn more about working with the PagerDuty API: [PagerDuty REST API!](http://developer.pagerduty.com/documentation/rest)
 
-
-
 ## Legal Stuff
-
 [Apache License](http://www.apache.org/licenses/)
 
 Version 2.0, January 2004
