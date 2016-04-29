@@ -1,60 +1,85 @@
 # hip-pager-bot
 
-Create and customize a HipChat bot that interacts with PagerDuty.
+Create and customize a responsive [HipChat](https://www.hipchat.com/) bot that communicates with your [PagerDuty](http://www.pagerduty.com/) account.
 
-This project is written in [node.js](http://nodejs.org) and can be found in the [npm directory](https://npmjs.org/package/hip-pager-bot).
+Written in [node.js](http://nodejs.org).
 
 ## Installation
 
     $ npm install hip-pager-bot
 
+Currently, this module is dependent on [node-xmpp](https://www.npmjs.com/package/node-xmpp) which is now deprecated, as well as a few other "deprecated" modules. The goal is to bring everything up-to-date in the near future; nonetheless, everything is currently functional.
+
+## Overview
+
+Your bot is capable of both sending and retrieving information to and from PagerDuty. For example, your bot can tell you who is currently on call, relay details about the latest incident, or trigger a new incident, all without even opening PagerDuty in the browser. Your bot is also capable of doing completely non-PagerDuty things, like telling you about the weather, or whatever you can think of, really. The sky is the limit!
+
 ## Getting Started
 
-This README assumes you already have a [HipChat](https://www.hipchat.com/) and a [PagerDuty](http://www.pagerduty.com/) account.
-
-There are two node modules included in the package: `pd` and `hipbot`.
-
-* `pd` Includes all the methods used to interact with the PagerDuty developer API
-* `hipbot` Creates a HipChat bot and includes methods that allow bot customization
-
-
-First, create a PagerDuty object which contains all the methods used to interact with the PagerDuty API...
+To initialize your bot:
 ```js
 var pd = require('hip-pager-bot').set({
-	subdomain : '??????',
-	api_key : '???????????',
-	service_key : '???????????',
-	service_ID : '??????'
+	subdomain : '?????????',
+	api_key : '?????????????????????',
+	service_key : '???????????????????????????',
+	service_ID : '???????',
+	schedule_ID : '???????',
+	policy_ID : '???????'
 });
-```
-
- - `subdomain` Your subdomain in PagerDuty
- - `api_key` A valid API access key from PagerDuty
- - `service_key` API key for specific PagerDuty service
- - `service_ID` ID for a PagerDuty service. This is the service incidents will be created on by the bot. You can find by going to the service on PagerDuty and copying the 7 digit ID from the end of the URL
-
-Make sure you have created a new user in HipChat for your bot. (This requires HipChat admin access)
-
-Now, Connect to your HipChat bot:
-```js
 var hipbot = pd.hipbot({
 	jid : '???????@chat.hipchat.com/bot',
 	password : '???????????',
+	mention : '??????',
+	name : '????????',
 	rooms : ['??????@conf.hipchat.com'],
-	mention : 'bot',
-	name : 'PagerDuty Bot',
-	description : 'I am here to help!',
-	version : '???????'
+	description : '????????????',
+	version : '???????',
+	debug : true
 });
 ```
 
- - `jid` The jid of your HipChat bot
- - `password` The password of your HipChat bot
- - `rooms` An array of every room xmpp_jid you want the bot to join on connection
- - `mention` The mention name of your HipChat bot (comes after the `@`)
- - `name` [optional] The name of your HipChat bot
- - `description` [optional] A description of your HipChat bot
- - `version` [optional] A version number for your HipChat bot 
+#### PagerDuty
+First, lets take a look at PagerDuty. These are all the things you are going to need from your PagerDuty account.
+
+ - `subdomain` Your subdomain in PagerDuty. (Example: *subdomain*.pagerduty.com)
+ - `api_key` A valid API access key from PagerDuty. You can [create a new API key here](https://wloderhose.pagerduty.com/api_keys).
+ - `service_key` Choose which service you would like your bot to communicate with. Then, go to that service on your PagerDuty account,  go to Settings, and copy the `Integration Key`.
+ - `service_ID` While viewing that same service, you can find this 7-digit ID at the end of the URL.
+ - `schedule_ID (Optional)` While viewing a schedule, you can find this 7-digit ID at the end of the URL. If you do not provide a schedule_ID, `hip-pager-bot` will try to determine it based on the service_ID you provided, but this may not work if you have not properly linked them.
+ - `policy_ID (Optional)` While viewing an escalation policy, you can find this 7-digit ID at the end of the URL. If you do not provide a policy_ID, `hip-pager-bot` will try to determine it based on the service_ID you provided, but this may not work if you have not properly linked them.
+
+#### HipChat
+Now that you've got PagerDuty all set, lets focus on the HipChat bot. You must first create a new user in HipChat. Your bot will then use that user's credentials.
+
+There are a few ways to do this, and unfortunately, all of them require a valid email address. For more info, check out: [Creating a HipChat user.](https://confluence.atlassian.com/hc/adding-and-removing-people-693896500.html)
+
+##### Option 1: Use Typical User Invitation Flow
+The simplest way to create a new user is to create a new email address, then invite yourself via HipChat. Go to your email, and accept the invitation. Then, while logged in to that new HipChat account, go [here](https://hipchat.com/account/xmpp) to find the user's Jabber ID.
+
+##### Option 2: Using the HipChat API
+Alternatively, you can send 2 simple HTTP requests to the HipChat API to create a new user, and find that user's Jabber ID (but you still need a valid email address!)
+
+First, [create two API tokens here](https://wloderhose.hipchat.com/account/api). Call the first one `Create User`, select the `Administer Group` scope, and save. Call the second one `View User`, select the `View Group` scope, and save.
+
+To create the HTTP request, copy and paste the following two commands into a UNIX shell (such as OS X Terminal or Cygwin). Insert the `name`, `mention`, `password`, and `email` of your new HipChat user, which will become your bot. Insert the HipChat API tokens that you just created in their respective places.
+
+`curl -H "Content-Type: application/json" -X POST -d {"name": "[name]", "mention_name" : "[mention_name]", "password" : "[password]", "email" : "[email]"} https://api.hipchat.com/v2/user/?auth_token=[create_user_token]`
+`curl -X GET https://api.hipchat.com/v2/user/[email]?auth_token=[view_group_token]`
+
+In the response body, find `xmpp_jid`, and save it. You are about to use it to connect your bot.
+
+Now, we can finally go back to our code and fill in all those question marks! 
+
+***IMPORTANT***: Each of the following fields must exactly match your new user's credentials, or the bot will not work (except for the optional ones).
+
+ - `jid` The Jabber ID of your new HipChat user. This is what we just looked for after creating the new user.
+ - `password` The password of your new HipChat user.
+ - `mention` The mention name of your new HipChat user (comes after the `@`).
+ - `name` The name of your new HipChat user.
+ - `rooms` An array of every room's Jabber ID that you want the bot to automatically join opon connection. [You can find a room's Jabber ID here](https://hipchat.com/rooms).
+ - `description (optional)` A description of your HipChat bot.
+ - `version (optional)` A version number for your HipChat bot.
+ - `debug (optional)` If set to true, all XMPP traffic will be logged to the console. By default, it is set to false.
 
 ## Functions
 
@@ -106,13 +131,13 @@ Get a property of the bot.
 
 ### hipbot.onPing(callback)
 
-Set function to fire when the bot pings (every 30 seconds)
+Set function to fire when the bot pings (every 30 seconds).
 
- - `callback` A funciton that fires on ping
+ - `callback` A function that fires on ping
 
 ### hipbot.onInvite(accept, callback)
 
-Emitted when the bot is invited to join a room in HipChat
+Emitted when the bot is invited to join a room in HipChat.
 
  - `accept` True if you want the bot to join
  - `callback` Function in the form of `function(roomJid, fromJid, reason)`
@@ -126,7 +151,7 @@ Add another room to the list of rooms joined on connection.
 
  - `roomJid` The jid of the HipChat room
 
-### hipbot.sendMessage(message, roomJid, fromName)
+### hipbot.sendMessage(message, roomJid, toName)
 
 Send a public message from the bot to a user on HipChat.
 
@@ -138,7 +163,7 @@ Send a public message from the bot to a user on HipChat.
 
 The HipChat bot will respond to public messages in HipChat. The first word after the bot's mention is called a command.
 
-The bot has a list of valid commands it will respond to which is completely customizable. You can also set what should happen on empty message and invalid commands.
+The bot has a list of valid commands it will respond to which is completely customizable. You can also set what should happen with empty messages and invalid commands.
 
 ### hipbot.onCommand(command, response)
 
@@ -184,7 +209,7 @@ hipbot.onCommand('math', function(body, roomJid, fromName, callback) {
 
 ### hipbot.onBlank(callback)
 
-Set a function to fire everytime the bot is message with a blank message.
+Set a function to fire every time the bot is mentioned with a blank message.
 
  - `callback` Function in the form of `function(roomJid, fromName, callback)`
  	- `roomJid` The jid of the HipChat room
@@ -195,12 +220,12 @@ Example:
 ```js
 hipbot.onBlank(function(roomJid, fromName, callback) {
 	callback('You just sent me a blank message!');
-})
+});
 ```
 
 ### hipbot.onInvalid(callback)
 
-Set a function to fire everytime the bot is message with a blank message.
+Set a function to fire every time the bot is given an invalid command.
 
  - `callback` Function in the form of `function(invalidCommand, roomJid, fromName, callback)`
  	- `invalidCommand` The command the user tried to use
@@ -211,26 +236,22 @@ Set a function to fire everytime the bot is message with a blank message.
 Example:
 ```js
 hipbot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
-	callback(invalidCommand + ' is not a valid command');
-})
+	callback('"' + invalidCommand + '" is not a valid command');
+});
 ```
 
-## Webhooks
+## Why do I have to ask?
 
-You can easily create webhooks that will ping HipChat rooms when incidents are triggered, acknowledged, or resolved in PagerDuty.
+I can hear you now, *"Sure, it's great that I can ask my bot about the current list of PagerDuty incidents, but what if I want to know about them as soon as they happen?"*
 
-Read more about webhooks [here](http://www.pagerduty.com/docs/guides/hipchat-integration-guide/).
+Well, thankfully, PagerDuty and HipChat already took care of that for you by creating what's called a webhook. You can easily create webhooks that will immediately ping HipChat rooms when incidents are triggered, acknowledged, or resolved in PagerDuty.
 
-## Fork Me!
+To learn how to do that: [Create A PagerDuty Webhook!](http://www.pagerduty.com/docs/guides/hipchat-integration-guide/)
 
-Forking this repository and making your own changes to fit your PagerDuty needs is highly recommended! 
+To learn more about working with the PagerDuty API: [PagerDuty REST API!](http://developer.pagerduty.com/documentation/rest)
 
-Read more about working with the PagerDuty REST API [here](http://developer.pagerduty.com/documentation/rest).
+## Legal Stuff
 
-## License
-
-Apache License
+[Apache License](http://www.apache.org/licenses/)
 
 Version 2.0, January 2004
-
-http://www.apache.org/licenses/

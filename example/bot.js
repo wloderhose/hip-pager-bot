@@ -4,20 +4,22 @@ var moment = require('moment');
 
 /* Edit these variables to match your HipChat and PagerDuty credentials
 ----------------------------------------------------------------------*/
-var pd = require('hip-pager-bot').set({
-	subdomain : '??????',
-	api_key : '???????????',
-	service_key : '???????????',
-	service_ID : '??????'
+var pd = require('./../hip-pager-bot').set({
+	subdomain : 'wloderhose',
+	api_key : 'CoyB5ha-1gz55dkPzNkM',
+	service_key : 'f6487e410e0a43119c40d3e897c98cf0',
+	service_ID : 'PYX7V81',
+	schedule_ID : 'P9ZRQKG',
+	policy_ID : 'PY9HJTN'
 });
 var bot = pd.hipbot({
-	jid : '???????@chat.hipchat.com/bot',
-	password : '???????????',
-	rooms : ['??????@conf.hipchat.com'],
-	mention : 'bot',
-	name : 'PagerDuty Bot',
+	jid : '568557_3872212@chat.hipchat.com/bot',
+	password : 'hip-pager-bot',
+	rooms : ['568557_wloderhose@conf.hipchat.com'],
+	mention : 'Charlie',
+	name : 'Charlie',
 	description : 'I am here to help!',
-	version : '???????'
+	version : '0.1.0'
 });
 //----------------------------------------------------------------------
 
@@ -79,9 +81,9 @@ bot.onCommand('list', function(body, roomJid, fromName, callback) {
 			callback(responses.error);
 		} else {
 			if(list.length == 0) {
-				callback('Nothing in the list')
+				callback('NO ISSUES!')
 			} else {
-				var str;
+				var str = '';
 				for(var i = 0; i < list.length; i++) {
 					var incident = parse_incident(list[i]);
 					str += '\n\nINCIDENT NUMBER: ';
@@ -97,6 +99,7 @@ bot.onCommand('list', function(body, roomJid, fromName, callback) {
 
 					str += '\nSTATUS: ';
 					str += incident.status;
+					console.log(str);
 				}
 				callback(str);
 			}
@@ -113,14 +116,7 @@ bot.onCommand('msg', function(body, roomJid, fromName) {
 			callback('No one is on call.');
 		} else {
 			var str = '> message from ' + fromName + ':\n' + body;
-			var receiver = fromName;
-			if(isProd) {
-				receiver = onCall.name;
-			} else {
-				receiver = fromName;
-				str += '\n(The bot is currenty running in testing mode so the message was sent back to you instead of the on call user.)';
-			}
-			bot.sendMessage(str, roomJid, fromName);
+			bot.sendMessage(str, roomJid, onCall.name);
 		}
 	});
 });
@@ -131,7 +127,7 @@ bot.onCommand('new', function(body, room, from, callback) {
 		if(err || !success) {
 			callback(responses.error);
 		} else {
-			callback('It Worked!');
+			callback("It worked!\nYou're incident has been triggered and the on call engineer will be notified.");
 		}
 	});
 });
@@ -147,7 +143,7 @@ bot.onBlank(function(roomJid, fromName, callback) {
 
 // Respond helpfully to an invalid command
 bot.onInvalid(function(command, roomJid, fromName, callback) {
-	callback('I\'m sorry, ' + command + ' is not a valid command.\nType help for a list of valid commands.');
+	callback('I\'m sorry, "' + command + '" is not a valid command.\nType help for a list of valid commands.');
 });
 
 // Take a JSON incident object from pagerduty and extract desired info
@@ -187,8 +183,3 @@ function parse_incident(incident) {
 
 	return display;
 }
-
-
-
-
-

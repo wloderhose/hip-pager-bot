@@ -1,23 +1,24 @@
 {
   "name": "hip-pager-bot",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Create and customize a HipChat bot that interacts with PagerDuty.",
   "keywords": ["bot", "hipchat", "pagerduty", "node", "api", "proxy", "rest"],
-  "homepage": "https://github.com/Will-Loderhose/hip-pager-bot",
+  "homepage": "https://github.com/wloderhose/hip-pager-bot",
   "author": "Will Loderhose",
+  "license": "Apache-2.0",
   "repository": {
     "type":"git",
-    "url":"git://github.com/Will-Loderhose/hip-pager-bot"
+    "url":"git://github.com/wloderhose/hip-pager-bot"
   },
   "main": "./lib/pd.js",
   "dependencies": {
-   "wobot" : "git+ssh://git@github.com:Will-Loderhose/wobot.git#master",
+   "wobot" : "wloderhose/wobot",
    "moment" : "~2.2.1"
   },
   "devDependencies" : {
     "express" : "3.x",
     "jade" : "*",
-    "connect-flash" : "git://github.com/jaredhanson/connect-flash.git"
+    "connect-flash" : "*"
   },
   "engines": {
     "node": ">= 0.4.1"
