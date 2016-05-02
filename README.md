@@ -247,8 +247,6 @@ Set function to fire when the bot pings (every 30 seconds).
  - `key` A string identifier for that function (needed if you want to pause it later)
  - `callback` A function that fires on ping
 
-To pause and resume the function from firing:
-
 ### hipbot.pause(key)
 
 Pause a function from firing repeatedly.
