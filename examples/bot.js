@@ -62,6 +62,10 @@ var str = '';
 str += '\nI\'m sorry, an error has occured with ' + bot.get('name');
 responses.error = str;
 
+bot.onPing('hello-world', function() {
+	console.log('Hello World!');
+});
+
 // Respond with who is currently on call
 bot.onCommand('who', function(body, roomJid, fromName, callback) {
 	pd.who(function(err, onCall) {
@@ -109,7 +113,7 @@ bot.onCommand('list', function(body, roomJid, fromName, callback) {
 });
 
 // Send a message to the user on call through HipChat
-bot.onCommand('msg', function(body, roomJid, fromName) {
+bot.onCommand('msg', function(body, roomJid, fromName, callback) {
 	pd.who(function(err, onCall) {
 		if(err) {
 			callback(responses.error);

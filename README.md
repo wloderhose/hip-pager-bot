@@ -8,11 +8,11 @@ Written in [node.js](http://nodejs.org).
 
     $ npm install hip-pager-bot
 
-Currently, this module is dependent on [node-xmpp](https://www.npmjs.com/package/node-xmpp) which is now deprecated, as well as a few other "deprecated" modules. The goal is to bring everything up-to-date in the near future; nonetheless, everything is currently functional.
+*Currently, this module is dependent on [node-xmpp](https://www.npmjs.com/package/node-xmpp) which is now deprecated, as well as a few other deprecated modules. The goal is to bring everything up-to-date in the near future. If you have any problems with the installation, feel free to let me know.*
 
 ## Overview
 
-Your bot is capable of both sending and retrieving information to and from PagerDuty. For example, your bot can tell you who is currently on call, relay details about the latest incident, or trigger a new incident, all without even opening PagerDuty in the browser. Your bot is also capable of doing completely non-PagerDuty things, like telling you about the weather, or whatever you can think of, really.
+Hip-Pager-Bot allows you to create and customize a bot that lives in one or more of your HipChat rooms. Your bot is capable of both sending and retrieving information to and from PagerDuty. For example, your bot can tell you who is currently on call, relay details about the latest incident, or trigger a new incident, all without even opening PagerDuty in the browser. Your bot is also capable of doing completely non-PagerDuty things, like telling you about the weather.
 
 As you setup your first bot, be sure to refer to the [example](examples/bot.js) to see it in action.
 
@@ -132,12 +132,6 @@ Get a property of the bot.
 
  - `key` The name of the property
 
-### hipbot.onPing(callback)
-
-Set function to fire when the bot pings (every 30 seconds).
-
- - `callback` A function that fires on ping
-
 ### hipbot.onInvite(accept, callback)
 
 Emitted when the bot is invited to join a room in HipChat.
@@ -160,7 +154,7 @@ Send a public message from the bot to a user on HipChat.
 
  - `message` The message to be sent
  - `roomJid` The jid of the HipChat room
- - `fromName` The name of the HipChat user
+ - `fromName (optional)` The name of the HipChat user. If blank, message is sent to the room without any @ mentions.
 
 ## Creating Commands
 
@@ -243,15 +237,60 @@ hipbot.onInvalid(function(invalidCommand, roomJid, fromName, callback) {
 });
 ```
 
-## Why Do I Have to Ask?
-I can hear you now, *"Sure, it's great that I can ask my bot about the current list of PagerDuty incidents, but what if I want to know about them as soon as they happen?"*
+## Ping Functions
+Although there is a lot that you can do using commands, you may want your bot to do some things without being told. For example, wouldn't it be nice if your bot automatically told you when a new incident had been triggered in PagerDuty? To do this, you can use the `onPing` function.
 
-Well, thankfully, PagerDuty and HipChat already took care of that for you by creating what's called a webhook. You can easily create webhooks that will immediately ping HipChat rooms when incidents are triggered, acknowledged, or resolved in PagerDuty.
+### hipbot.onPing(key, callback)
 
-To learn how to do that: [Create A PagerDuty Webhook!](http://www.pagerduty.com/docs/guides/hipchat-integration-guide/)
+Set function to fire when the bot pings (every 30 seconds).
 
-## What Next?
-The rest is up to you. Hip-pager-bot provides a basic foundation for you, but there is a lot more that could be done with it. Get creative, see what you can come up with. Feel free to submit a pull request if you have an idea or an improvement.
+ - `key` A string identifier for that function (needed if you want to pause it later)
+ - `callback` A function that fires on ping
+
+To pause and resume the function from firing:
+
+### hipbot.pause(key)
+
+Pause a function from firing repeatedly.
+
+ - `key` The string identifier for that function
+
+### hipbot.resume(key)
+
+Resume a function to start firing repeatedly.
+
+ - `key` The string identifier for that function
+
+*Examples:*
+```js
+hipbot.onPing('incident-update', function() {
+	pd.list('t', function(err, list) {
+		if(err) {
+			bot.sendMessage(responses.error, roomJid);
+		} else {
+			if(list.length != 0) {
+				bot.sendMessage(list.length + 'triggered incidents.', roomJid);
+			}
+		}
+	});
+});
+
+hipbot.onCommand('stop', function(body, roomJid, fromName, callback) {
+	hipbot.pause('incident-update');
+});
+
+hipbot.onCommand('start', function(body, roomJid, fromName, callback) {
+	hipbot.resume('incident-update');
+});
+```
+
+*Note: Currently, the ping time cannot be changed, but future plans are to make this time editable.*
+
+Also, keep in mind that PagerDuty offers webhooks for HipChat, which are designed to immediately ping HipChat rooms when incidents are triggered, acknowledged, or resolved in PagerDuty.
+
+To learn how to create webhooks: [Create A PagerDuty Webhook!](http://www.pagerduty.com/docs/guides/hipchat-integration-guide/)
+
+Well, now the rest is up to you. Hip-pager-bot provides a basic foundation, but there is a lot more that could be done with it. Get creative, see what you can come up with. Feel free to submit a pull request if you have an idea or an improvement.
 
 To learn more about working with the PagerDuty API: [PagerDuty REST API!](http://developer.pagerduty.com/documentation/rest)
 
