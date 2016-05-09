@@ -8,7 +8,7 @@ Written in [node.js](http://nodejs.org).
 
     $ npm install hip-pager-bot
 
-*Currently, this module is dependent on [node-xmpp](https://www.npmjs.com/package/node-xmpp) which is now deprecated, as well as a few other deprecated modules. The goal is to bring everything up-to-date in the near future. If you have any problems with the installation, feel free to let me know.*
+*Currently, this module is dependent on [node-xmpp](https://www.npmjs.com/package/node-xmpp) which is now deprecated, as well as a few other deprecated modules. The goal is to bring everything up-to-date in the near future.*
 
 ## Overview
 
