@@ -1,6 +1,6 @@
 {
   "name": "hip-pager-bot",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Create and customize a HipChat bot that interacts with PagerDuty.",
   "keywords": [
     "bot",
